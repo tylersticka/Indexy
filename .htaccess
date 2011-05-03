@@ -1,0 +1,15 @@
+
+AddHandler php5-script .php
+
+#========================================================================
+# .htaccess file for Indexy
+#========================================================================
+
+Options -Indexes
+Options +FollowSymLinks
+
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteBase /
+	RewriteRule ^([^\.]+)$ index.php [L]
+</IfModule>
