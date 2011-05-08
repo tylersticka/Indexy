@@ -1,9 +1,12 @@
-
-AddHandler php5-script .php
-
 #========================================================================
 # .htaccess file for Indexy
 #========================================================================
+
+# Enable PHP5 (Media Temple)
+AddHandler php5-script .php
+
+# Enable PHP5 (1&1)
+#AddType x-mapp-php5 .php
 
 Options -Indexes
 Options +FollowSymLinks
