@@ -17,7 +17,7 @@
 {/if}
 
 <footer id="byline">
-	<p>Indexy and its default theme were created by <a href="http://tylersticka.com">Tyler Sticka</a>.</p>
+	<p><a href="http://indexy.tylersticka.com">Indexy</a> and its default theme were created by <a href="http://tylersticka.com">Tyler Sticka</a>.</p>
 	<p>File icons by <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a>, licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 license</a>.</p>
 </footer>
 
