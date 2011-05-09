@@ -3,7 +3,8 @@
 $redirects = array(
 	'application'	=>	array('exe', 'msi'),
 	'archive'		=>	array('zip', 'gz', 'tar', 'rar', '7z'),
-	'book'			=>	array('cbr', 'cbz', 'epub', 'mobi'),
+	'balloon'		=>	array('cbr', 'cbz'),
+	'book'			=>	array('epub', 'mobi'),
 	'calendar'		=>	array('ical'),
 	'code'			=>	array('html', 'htm', 'js', 'py'),
 	'database'		=>	array('sql'),
