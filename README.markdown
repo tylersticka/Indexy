@@ -9,6 +9,8 @@ The default theme uses CSS3 media queries to respond thoughtfully to different d
 
 Indexy is very young, so any and all improvements and enhancements are encouraged. I'm mostly a web designer who casually delves into the murkier parts of server-side development, so I'd sincerely love the help and the chance to learn from talented contributors.
 
+[View the demo](http://indexy.tylersticka.com/demo/)
+
 Authors
 -------
 
