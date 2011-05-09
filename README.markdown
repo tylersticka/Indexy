@@ -27,6 +27,8 @@ Installation
 
 4. Give it a spin!
 
+If you don't want search engines scraping the contents of your listing, you should create a [robots.txt](http://www.robotstxt.org/) file at the root of your installation.
+
 License
 -------
 
@@ -39,4 +41,5 @@ Indexy includes the [Dwoo](http://dwoo.org/) template engine. Portions of the sc
 Changelog
 ---------
 
+* **v0.2** Support for non-root installations, error pages now in default theme, lots of bug fixes
 * **v0.1** Original release

@@ -30,7 +30,7 @@ $data['paths'] = $client;
 // Determine if request is valid
 if (!is_dir($server['request'])) {
 	$data['error'] = 'HTTP/1.1 404 Not Found';
-} else if (indexy_is_forbidden($client['request'], $forbidden_paths)) {
+} else if (indexy_is_forbidden($client['request'], $forbidden_paths, $root_path)) {
 	$data['error'] = 'HTTP/1.1 403 Forbidden';
 }
 
@@ -42,6 +42,7 @@ if (array_key_exists('error',$data)) {
 		get_directory_objects($server['request']),
 		$client['request'],
 		$server['request'],
+		$client['root'],
 		$forbidden_paths,
 		$hidden_file_extensions,
 		$hidden_file_names

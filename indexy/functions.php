@@ -42,9 +42,30 @@ function pre($stuff) {
 	echo '</pre>';
 }
 
-// strstr for last occurence in string
-function rstrstr($haystack,$needle, $start=0) {
-	return substr($haystack, $start,strpos($haystack, $needle));
+// Return string from last occurence of needle till end of string
+function rstrstr($haystack, $needle, $start=0) {
+	return substr($haystack, $start, strrpos($haystack, $needle));
+}
+
+// Add trailing slash if there is none
+function addSlash($str) {
+	return (substr($str, -1) == '/') ? $str : $str.'/';
+}
+
+// Remove trailing slash if there is one
+function remSlash($str) {
+	return (substr($str, -1) == '/') ? substr($str, 0, -1) : $str;
+}
+
+// Remove both trailing or ending slashes
+function trimSlashes($str) {
+	if (substr($str, -1) == '/') {
+		$str = substr($str, 0, -1);
+	}
+	if (substr($str, 0, 1) == '/') {
+		$str = substr($str, 1);
+	}
+	return $str;
 }
 
 /****************************************************************************
@@ -52,41 +73,60 @@ function rstrstr($haystack,$needle, $start=0) {
 *****************************************************************************/
 
 // Determine necessary paths based on URL, file location and configuration
-function indexy_get_paths($root_path='/', $theme='default') {
+function indexy_get_paths($root_path, $theme) {
+	
 	// Create arrays
 	$server = array();
 	$client = array();
-	// Indexy
-	$server['indexy'] = str_replace('\\', '/', dirname(__FILE__));
-	$client['indexy'] = '/'.basename($server['indexy']);
-	// Root
-	$server['root'] = rstrstr($server['indexy'], $client['indexy']);
+	
+	// Client root is $root_path
 	$client['root'] = $root_path;
-	// Theme
+	
+	// Indexy location on server is directory name of this file
+	$server['indexy'] = str_replace('\\', '/', dirname(__FILE__));
+	
+	// Store basename of Indexy folder for later
+	$indexyFolderName = basename($server['indexy']);
+	
+	// Indexy on the client side is the client root plus the basename of the indexy directory
+	$client['indexy'] = addSlash($client['root']).$indexyFolderName;
+	
+	// Root on the server is indexy directory minus indexy dir name (which is client value)
+	$server['root'] = rstrstr($server['indexy'], '/'.$indexyFolderName);
+	
+	// Ttheme locations easy to determine from existing vars
 	$client['theme'] = $client['indexy'] . '/themes/' . $theme;
-	$server['theme'] = $server['root'] . $client['theme'];
-	// Request
+	$server['theme'] = $server['indexy'] . '/themes/' . $theme;
+	
+	//$server['theme'] = $server['root'] . $client['theme'];
+	
+	// Store request host and URL
 	$client['host'] = $_SERVER['HTTP_HOST'];
 	$url = parse_url($_SERVER["REQUEST_URI"]);
-	$client['request'] = $url['path'];
-	if (substr($client['request'], -1) == '/') {
-		$client['request'] = substr($client['request'], 0, -1);
+	
+	// Client request based on URL path
+	$client['request'] = (strlen($url['path']) > 1) ? remSlash($url['path']) : $url['path'];
+	$client['request'] = urldecode($client['request']);
+	
+	// Determine the server request based on the client request
+	$server['request'] = ($client['root'] === '/') ? $server['root'] : rstrstr($server['root'], $client['root']);
+	$server['request'].= remSlash($client['request']);
+	
+	// Segments array begins with client request
+	$segments = $client['request'];
+	
+	// Check to see if the request starts with the same value as root, and remove it if so
+	if (strpos($segments, $client['root']) === 0) {
+		$segments = substr($segments, strlen($client['root']));
 	}
-	$server['request'] = $server['root'] . $client['request'];
-	if (strlen($client['request']) < 1) {
-		$client['request'] = '/';
-	}
-	// Segments
-	$segments = strstr($client['request'], $client['root']);
-	if (substr($segments, -1) == '/') {
-		$segments =  substr($segments, 0, -1);
-	}
-	if (substr($segments, 0, 1) == '/') {
-		$segments = substr($segments, 1);
-	}
-	$segments = explode('/', $segments);
+	
+	// Trim any beginning or leading slashes and prep vars for loop
+	$segments = trim(trimSlashes($segments));
+	$segments = strlen($segments) ? explode('/', $segments) : array();
 	$client['segments'] = array();
-	$full_segment = $client['root'] === '/' ? '' : $client['root'];
+	$full_segment = remSlash($client['root']);
+	
+	// Loop through segments, building full segment and pushing to final array
 	foreach($segments as $segment) {
 		$full_segment.= '/'.$segment;
 		$client['segments'][] = array(
@@ -94,9 +134,11 @@ function indexy_get_paths($root_path='/', $theme='default') {
 			'full' => $full_segment
 		);
 	}
-	//$client['segments'] = explode('/', $segments);
-	//$client['segments'] = explode('/', strstr($client['request'], $client['root']));
-	//pre($client['segments']);
+	
+	// pre($server);
+	// pre($client);
+	// die();
+	
 	// Package results and return
 	return array(
 		'server' => $server, 
@@ -105,7 +147,12 @@ function indexy_get_paths($root_path='/', $theme='default') {
 }
 
 // Check if a directory is forbidden or not
-function indexy_is_forbidden($dir, $forbidden=array()) {
+function indexy_is_forbidden($dir, $forbidden=array(), $root_path='/') {
+	if ($root_path != '/') {
+		foreach($forbidden as $key=>$name) {
+			$forbidden[$key] = remSlash($root_path) . $name;
+		}
+	}
 	if (in_array($dir, $forbidden)) {
 		return true;
 	}
@@ -118,14 +165,14 @@ function indexy_is_forbidden($dir, $forbidden=array()) {
 }
 
 // Prepare object arrays for their eventual journey
-function indexy_prepare_objects($objects, $client, $server, $forbidden_paths=array(), $hidden_file_extensions=array(), $hidden_file_names=array()) {
+function indexy_prepare_objects($objects, $client, $server, $root, $forbidden_paths=array(), $hidden_file_extensions=array(), $hidden_file_names=array()) {
 	// Create vars
 	$dirs = array();
 	$files = array();
 	$total_size = 0;
 	// Directories
 	foreach($objects['directories'] as $dir_name) {
-		if (!in_array($client.$dir_name, $forbidden_paths)) {
+		if (!indexy_is_forbidden(addSlash($client).$dir_name, $forbidden_paths, $root)) {
 			$dirs[] = indexy_prepare_object($dir_name, $server);
 		}
 	}

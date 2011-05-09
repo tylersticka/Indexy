@@ -1,5 +1,5 @@
 <header>
-	<h1>{$paths.host}{if $paths.root !== '/'}{$paths.root}{/if} Files</h1>
+	<h1>{$paths.host}{if $paths.root !== '/'}{$paths.root}{/if}</h1>
 	<nav>
 		<ul id="path" class="cf">
 			<li><a href="{$paths.root}" class="root">Home</a></li>
@@ -31,7 +31,7 @@
 			{/if}
 			{loop $objects.directories}
 			<tr>
-				<td class="name"><img class="icon" src="{$_.paths.theme}/img/icons/directory.png" /><a href="{$name}">{$name}</a></td>
+				<td class="name"><img class="icon" src="{$_.paths.theme}/img/icons/directory.png" /><a href="{$name|escape:url}">{$name}</a></td>
 				<td class="size">&nbsp;</td>
 				<td class="modified">{date_format $mtime '%b %e, %Y %l:%M %p'}</td>
 			</tr>

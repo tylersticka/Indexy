@@ -4,6 +4,9 @@ $config = array(
 	
 	/**
 	 * Paths that should be forbidden if accessed directly and hidden from listings.
+	 * 
+	 * Entries should be relative to the root_path.
+	 * 
 	 * Currently only affects directories, not files.
 	 */
 	'forbidden_paths' => array('/indexy'),
