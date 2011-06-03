@@ -235,43 +235,42 @@ a {
 	#page ul, #page ol, #page dl,
 	#page p,
 	#page blockquote, #page pre,
-	#page table {
-		margin-bottom: 24px;
-	}
-	
-	#page h1, #page h2, #page h3, #page h4,
+	#page table,
+	#page h1, #page h2,
 	#page dd,
 	#page caption {
-		margin-bottom: 12px;
+		margin-bottom: 18px;
 	}
 	
-	#page h1, #page h2, #page h3, #page h4, #page h5, #page h6,
+	#page h1, #page h2, #page h3, #page h4, #page h5,
 	#page dt,
 	#page caption, #page th {
 		font-weight: bold;
 	}
 	
 	#page h1 {
-		font-size: 36px;
-		line-height: 48px;
+		font-size: 32px;
+		line-height: 44px;
 	}
 	
 	#page h2 {
-		font-size: 28px;
-		line-height: 40px;
+		border-top: 3px solid #E0E5EB;
+		font-size: 24px;
+		left: -24px;
+		line-height: 36px;
+		/*margin-top: 32px;*/
+		padding: 15px 24px 0;
+		position: relative;
+		width: 100%;
 	}
 	
 	#page h3 {
-		font-size: 22px;
-		line-height: 34px;
+		font-size: 20px;
+		line-height: 32px;
+		margin-bottom: 12px;
 	}
 	
-	#page h4 {
-		font-size: 18px;
-		line-height: 30px;
-	}
-	
-	#page h6 {
+	#page h5, #page h6 {
 		font-size: 13px;
 		text-transform: uppercase;
 	}
@@ -308,11 +307,18 @@ a {
 	
 	#page code, #page kbd, #page samp, #page var {
 		font-family: 'Droid Sans Mono', monospace;
+		font-size: 14px;
 	}
 	
 	#page blockquote {
-		border-left: 3px solid #E0E5EB;
-		padding-left: 24px;
+		/*border-left: 3px solid #E0E5EB;
+		padding-left: 24px;*/
+		background: #F4F4F4;
+		font-size: 14px;
+		left: -24px;
+		padding: 12px 24px;
+		position: relative;
+		width: 100%;
 	}
 		#page blockquote :last-child {
 			margin-bottom: 0;

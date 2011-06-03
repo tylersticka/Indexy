@@ -287,7 +287,7 @@ class Indexy extends Mustache
 			}
 		}
 		// Total count
-		$this->count = count($this->directories) + count($this->files);
+		$this->count = count($this->directories) + count($this->files) + count($this->pages);
 	}
 	
 	public function size_formatted() {
