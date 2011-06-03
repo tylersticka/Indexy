@@ -3,6 +3,12 @@
 $config = array(
 	
 	/**
+	 * If true, files with the extension specified in 'page_extension' are viewed 
+	 * as pages within Indexy.
+	 */
+	'enable_pages' => true,
+	
+	/**
 	 * Paths that should be forbidden if accessed directly and hidden from listings.
 	 * 
 	 * Entries should be relative to the root_path.
@@ -22,6 +28,12 @@ $config = array(
 	'hidden_file_names' => array('.htaccess', 'robots.txt'),
 	
 	/**
+	 * The file extension that denotes when something is a file that should be
+	 * parsed as a page.
+	 */
+	 'page_extension' => 'markdown',
+	
+	/**
 	 * The root Indexy client-side path.
 	 * 
 	 * If Indexy is on the root of your domain or subdomain, you can leave this as
@@ -37,6 +49,12 @@ $config = array(
 	 * The name of the folder your desired theme is located in inside of the
 	 * indexy/themes directory.
 	 */
-	'theme' => 'default'
+	'theme' => 'default',
+	
+	/**
+	 * The overall title of your Indexy instance. This can use any of the Mustache
+	 * template tags available to themes.
+	 */
+	'title' => 'Files on {{host_path}}'
 	
 );

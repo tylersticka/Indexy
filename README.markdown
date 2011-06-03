@@ -1,15 +1,16 @@
 Indexy - Themeable PHP Directory Listings
 =========================================
 
-Indexy replaces your tired, old default directory listings with a beautiful, readable and accessible new layout.
+Why settle for the same old tired default directory listings? Indexy makes them beautiful, readable and accessible. [View the demo &#8594;](http://indexy.tylersticka.com/demo/)
 
-It uses [Dwoo](http://dwoo.org/) for templates. Dwoo is (almost) fully compatible with Smarty templates and plugins, while adding native PHP5 support and many features.
+Features
+--------
 
-The default theme uses CSS3 media queries to respond thoughtfully to different devices.
+* Simple theming using [Mustache](http://mustache.github.com/) templates
+* Default theme uses CSS3 media queries for tablet and smartphone viewing
+* Optional [Markdown](http://daringfireball.net/projects/markdown/) viewer
 
-Indexy is very young, so any and all improvements and enhancements are encouraged. I'm mostly a web designer who casually delves into the murkier parts of server-side development, so I'd sincerely love the help and the chance to learn from talented contributors.
 
-[View the demo](http://indexy.tylersticka.com/demo/)
 
 Authors
 -------
@@ -17,7 +18,7 @@ Authors
 * [Tyler Sticka](http://tylersticka.com)
 
 Installation
----------------
+------------
 
 **Proceed with caution!** Indexy is brand new and has not been extensively tested. It probably won't play nice co-existing with other scripts in the same directory that use .htaccess. It can also be a security risk to expose the contents of your server's directory.
 
@@ -29,8 +30,6 @@ Installation
 
 4. Give it a spin!
 
-If you don't want search engines scraping the contents of your listing, you should create a [robots.txt](http://www.robotstxt.org/) file at the root of your installation.
-
 License
 -------
 
@@ -38,10 +37,11 @@ This software is free to use and modify. You may not charge for or sell this sof
 
 While it's not required, letting me know about modifications you've made proves that you are, in fact, a really nice person.
 
-Indexy includes the [Dwoo](http://dwoo.org/) template engine. Portions of the script that rely on it are subject to Dwoo's licensing restrictions.
+Indexy makes use of several open source libraries which may come with their own licensing rules.
 
 Changelog
 ---------
 
+* **v0.3** Re-write of 99% of the code, switched to Mustache for templating, added markdown viewer
 * **v0.2** Support for non-root installations, error pages now in default theme, lots of bug fixes
 * **v0.1** Original release

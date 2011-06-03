@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>{{#page}}Viewing {{page_file_name}}{{/page}}{{^page}}Index of {{request_path_closed}}{{/page}} - {{title}}</title>
+	<link rel="stylesheet" "http://fonts.googleapis.com/css?family=Droid+Sans:bold,regular" />
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald" />
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans+Mono" />
+	<link rel="stylesheet" href="{{theme_path}}/css/style.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	{{#error}}
+	<link rel="shortcut icon" href="{{theme_path}}/img/icons/alert.ico" />
+	{{/error}}
+	{{^error}}
+	{{#page}}
+	<link rel="shortcut icon" href="{{theme_path}}/img/icons/page.ico" />
+	{{/page}}
+	{{^page}}
+	<link rel="shortcut icon" href="{{theme_path}}/img/icons/directory.ico" />
+	{{/page}}
+	{{/error}}
+</head>
+<body>
+
+<header>
+	{{#error}}
+	<h1 id="masthead">{{error}}</h1>
+	{{/error}}
+	{{^error}}
+	<h1 id="masthead">{{title}}</h1>
+	{{/error}}
+	<nav>
+		<ul id="path">
+			<li><a href="{{root_path_closed}}" class="root">Home</a></li>
+			{{^error}}
+			{{#segments}}
+			<li><a href="{{full}}">{{part}}</a></li>
+			{{/segments}}
+			{{#page}}
+			<li><a href="{{request_path}}" class="page">{{page_nice_name}}</a></li>
+			{{/page}}
+			{{/error}}
+		</ul>
+	</nav>
+</header>
+
+<div id="container">
+	
+	{{#error}}
+	<p id="error">Apologies, something wen&rsquo;t awry. <a href="{{root_path_closed}}">Start from the beginning?</a></p>
+	{{/error}}
+	
+	{{^error}}
+	
+	{{#page}}
+	<section>
+		<nav>
+			<ul id="page-nav">
+				<li><img class="icon" src="{{theme_path}}/img/icons/parent.png" /><a href="{{up_path}}">Parent Directory</a></li>
+				<li><img class="icon" src="{{theme_path}}/img/icons/code.png" /><a href="{{page_path}}">View Source</a></li>
+			</ul>
+		</nav>
+		<div id="page">
+			{{{page}}}
+		</div>
+	</section>
+	{{/page}}
+	
+	{{^page}}
+	<section>
+		<table id="listing">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">Size</th>
+					<th scope="col">Modified</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{^is_root}}
+				<tr>
+					<td class="name"><img class="icon" src="{{theme_path}}/img/icons/parent.png" /><a href="..">Parent directory</a></td>
+					<td class="size">&nbsp;</td>
+					<td class="modified">&nbsp;</td>
+				</tr>
+				{{/is_root}}
+				{{#directories}}
+				<tr>
+					<td class="name"><img class="icon" src="{{theme_path}}/img/icons/directory.png" /><a href="{{name_url}}">{{name}}</a></td>
+					<td class="size">&nbsp;</td>
+					<td class="modified">{{mtime_formatted}}</td>
+				</tr>
+				{{/directories}}
+				{{#pages}}
+				<tr>
+					<td class="name"><img class="icon" src="{{theme_path}}/img/icons/page.png" /><a href="{{nice_name_url}}" title="View {{name}}">{{nice_name}}</a></td>
+					<td class="size">{{size_formatted}}</td>
+					<td class="modified">{{mtime_formatted}}</td>
+				</tr>
+				{{/pages}}
+				{{#files}}
+				<tr>
+					<td class="name"><img class="icon" src="{{theme_path}}/img/icon.php?{{extension}}" /><a href="{{name_url}}">{{name}}</a></td>
+					<td class="size">{{size_formatted}}</td>
+					<td class="modified">{{mtime_formatted}}</td>
+				</tr>
+				{{/files}}
+			</tbody>
+		</table>
+		<footer id="meta">
+			{{#count}}
+			<p>There {{count_verb}} {{count}} {{count_noun}} totaling {{size_formatted}} in this directory.</p>
+			{{/count}}
+			{{^count}}
+			<p>This directory is empty.</p>
+			{{/count}}
+		</footer>
+	</section>
+	{{/page}}
+	
+	{{/error}}
+	
+</div>
+
+<footer id="byline">
+	<p><a href="http://indexy.tylersticka.com">Indexy</a> and its default theme were created by <a href="http://tylersticka.com">Tyler Sticka</a>.</p>
+	<p>File icons by <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a>, licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 license</a>.</p>
+</footer>
+
+</body>
+</html>
