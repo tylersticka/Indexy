@@ -8,8 +8,7 @@ AddHandler php5-script .php
 # Enable PHP5 (1&1)
 #AddType x-mapp-php5 .php
 
-Options -Indexes
-Options +FollowSymLinks
+Options -Indexes -MultiViews +FollowSymLinks
 
 <IfModule mod_rewrite.c>
 	RewriteEngine on
