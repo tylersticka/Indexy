@@ -16,6 +16,7 @@ Authors
 -------
 
 * [Tyler Sticka](http://tylersticka.com)
+* [Peter Wooley](http://peterwooley.com)
 
 Installation
 ------------
@@ -42,6 +43,7 @@ Indexy makes use of several open source libraries which may come with their own 
 Changelog
 ---------
 
+* **v0.5** Merged [peterwooley](https://github.com/peterwooley)'s .htaccess improvements
 * **v0.4** Bug fixes, improved page type styles
 * **v0.3** Re-write of 99% of the code, switched to Mustache for templating, added markdown viewer
 * **v0.2** Support for non-root installations, error pages now in default theme, lots of bug fixes
